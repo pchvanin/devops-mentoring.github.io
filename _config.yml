@@ -15,7 +15,7 @@ plugins:
 collections:
   modules:
     output: true
-    permalink: /modules/:name/
+    permalink: /_modules/:name/
 
 defaults:
   - scope:
