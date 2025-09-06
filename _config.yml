@@ -1,0 +1,8 @@
+title: "DevOps/SRE FastTrack — Модуль 0"
+description: "Самодостаточный учебник по базам информатики для выхода на уровень DevOps Middle"
+theme: jekyll-theme-cayman
+markdown: kramdown
+kramdown:
+  input: GFM
+plugins:
+  - jekyll-seo-tag
