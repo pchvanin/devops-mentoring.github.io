@@ -1,21 +1,20 @@
 title: "DevOps/SRE FastTrack — Курс до Middle"
-description: "Самодостаточный учебник с практикой: Linux, сети, Bash, Git, Docker, Kubernetes, Ansible, Terraform, CI/CD, мониторинг, SRE."
+description: "Самодостаточный учебник с практикой"
 theme: jekyll-theme-cayman
 
 markdown: kramdown
 kramdown:
   input: GFM
-  toc_levels: 2..3
 permalink: pretty
 
 plugins:
   - jekyll-seo-tag
 
-# Коллекция модулей (страницы-уроки)
 collections:
   modules:
     output: true
-    permalink: /_modules/:name/
+   
+    permalink: /modules/:name/
 
 defaults:
   - scope:
