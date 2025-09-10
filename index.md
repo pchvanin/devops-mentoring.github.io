@@ -1,179 +1,205 @@
 ---
 layout: page
-title: "DevOps/SRE FastTrack — RETRO"
+title: "DevOps/SRE FastTrack — DOOM Edition"
 ---
 
 <style>
-/* ===== RETRO CRT THEME ===== */
+/* ===== DOOM THEME (читабельно) ===== */
 :root{
-  --bg:#000; --fg:#22ff55; --dim:#0f7; --accent:#8aff8a; --grid:#083; --border:#1a3; --card:#000;
-}
-.retro[data-theme="amber"]{ --fg:#ffbf00; --dim:#c98a00; --accent:#ffd45c; --grid:#7a4a00; --border:#a86700; }
-.retro[data-theme="ice"]  { --fg:#00e5ff; --dim:#00a8bf; --accent:#7ff1ff; --grid:#006b77; --border:#0091a3; }
-.retro[data-theme="doom"] { --fg:#ff3b3b; --dim:#c21f1f; --accent:#ff8080; --grid:#5d0d0d; --border:#7f1b1b; }
-
-html,body{background:#000}
-.page{background:transparent}
-.retro{
-  position:relative; color:var(--fg); font-family: ui-monospace, Menlo, Consolas, "Liberation Mono", monospace;
-  letter-spacing:.3px; text-shadow: 0 0 6px color-mix(in srgb, var(--fg) 50%, transparent);
-  border-radius:14px; padding:14px;
-  box-shadow: 0 0 0 1px var(--border), inset 0 0 24px rgba(0,0,0,.8);
-  background: radial-gradient(1200px 600px at 50% -20%, rgba(255,255,255,.05), transparent 60%),
-              repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0px, rgba(255,255,255,.05) 1px, transparent 2px, transparent 4px),
-              #000;
-  overflow:hidden;
-}
-/* vignette */
-.retro:after{
-  content:""; position:absolute; inset:0;
-  background: radial-gradient(1200px 600px at 50% -20%, transparent, rgba(0,0,0,.35) 65%),
-              radial-gradient(1200px 800px at 50% 120%, transparent, rgba(0,0,0,.55) 60%);
-  pointer-events:none;
-}
-/* grid glow */
-.retro:before{
-  content:""; position:absolute; inset:0; opacity:.08; pointer-events:none;
-  background: repeating-linear-gradient(90deg, var(--grid) 0, var(--grid) 1px, transparent 2px, transparent 12px),
-              repeating-linear-gradient(0deg,  var(--grid) 0, var(--grid) 1px, transparent 2px, transparent 12px);
+  --bg: #0c0d0f;          /* графитовый фон */
+  --surface:#15171a;      /* фон карточек */
+  --border:#2c2f36;       /* границы */
+  --text:#e8e6df;         /* основной текст */
+  --muted:#a7a7a7;        /* вторичный */
+  --accent:#ff3b3b;       /* алый DOOM */
+  --accent2:#f2a900;      /* золотой акцент */
+  --shadow:0 2px 10px rgba(0,0,0,.35);
+  --round:14px;
 }
 
-/* ===== HERO DOS banner ===== */
+body, .page{ background: var(--bg); color: var(--text); }
+.page{ padding-top: 0; }
+
+/* HERO */
 .hero{
-  border:1px solid var(--border); background:var(--card);
-  padding:16px; border-radius:10px; margin-bottom:12px;
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,.03);
+  position:relative;
+  margin:-8px 0 18px 0;
+  border-radius: var(--round);
+  background:
+    linear-gradient(180deg, rgba(255,59,59,.14), transparent 40%),
+    linear-gradient(90deg, #751c1c 0%, #241c1c 60%);
+  border:1px solid #3b2323;
+  box-shadow: var(--shadow), inset 0 0 0 1px rgba(255,255,255,.04);
+  padding:22px 18px;
 }
-.hero .logo{font-weight:700; font-size:18px}
-.hero .banner{white-space:pre; line-height:1.15; font-weight:700; margin:4px 0 8px 0}
-.blink{animation:blink 1.1s steps(1,start) infinite}
-@keyframes blink{50%{opacity:.25}}
+.hero h1{
+  margin:2px 0 8px 0;
+  font-size: clamp(28px,3.6vw,42px);
+  letter-spacing: .5px;
+  text-shadow: 0 2px 0 rgba(0,0,0,.4);
+}
+.hero p{ margin:0 0 14px 0; color: var(--muted); font-size: 16px; }
 
-/* ===== DOS prompt search ===== */
-.prompt{display:flex; align-items:center; gap:8px; margin:6px 0}
-.prompt .path{color:var(--dim)}
+.controls{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.toggle{
+  display:inline-flex; gap:8px; align-items:center;
+  background: #1b1e23; border:1px solid var(--border); color: var(--text);
+  padding:8px 10px; border-radius: 10px; cursor:pointer; user-select:none;
+}
+.toggle input{ accent-color: var(--accent); }
+
+/* SEARCH */
+.search{
+  display:flex; align-items:center; gap:10px; margin-top:8px;
+}
 #q{
-  flex:1; background:transparent; border:none; outline:none; color:var(--fg);
-  caret-color:var(--accent); font:inherit; padding:2px 0;
-  border-bottom:1px dashed var(--border);
+  flex:1; height:46px; padding:0 14px;
+  background:#121417; color:var(--text);
+  border:1px solid var(--border); border-radius: 10px;
+  outline:none; box-shadow: var(--shadow);
 }
-.small{opacity:.8; font-size:13px}
+#q:focus{ border-color: var(--accent); box-shadow: 0 0 0 2px rgba(255,59,59,.25); }
+.count{ margin-top:8px; font-weight:600; color: var(--muted); }
 
-/* ===== palette buttons ===== */
-.palette{display:flex; gap:6px; flex-wrap:wrap; margin-top:6px}
-.palette button{
-  background:transparent; color:var(--fg); border:1px solid var(--border);
-  padding:2px 8px; border-radius:6px; cursor:pointer
-}
-.palette button:hover{box-shadow:0 0 8px color-mix(in srgb, var(--fg) 30%, transparent);}
-
-/* ===== cards (MS-DOS windows) ===== */
-.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:10px; margin-top:10px}
+/* CARDS */
+.cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:14px; margin-top:10px; }
 .card{
-  display:block; color:var(--fg); text-decoration:none; background:var(--card);
-  border:1px solid var(--border); border-radius:8px; padding:12px;
-  box-shadow: 0 0 0 2px rgba(255,255,255,.03), 0 0 18px rgba(0,255,128,.04);
-  transition: transform .08s linear, box-shadow .12s ease;
+  display:block; text-decoration:none; color:inherit;
+  background: var(--surface); border:1px solid var(--border); border-radius: 12px;
+  box-shadow: var(--shadow); padding: 0; overflow:hidden; transition: transform .1s ease, box-shadow .15s ease;
 }
-.card:hover{ transform: translateY(-1px) scale(1.01);
-  box-shadow: 0 0 0 2px rgba(255,255,255,.05), 0 0 22px color-mix(in srgb, var(--fg) 18%, transparent); }
-.card h3{margin:0 0 4px 0; font-weight:700}
-.card p{margin:0 0 6px 0; color:var(--accent)}
-.pills{display:flex; gap:6px; flex-wrap:wrap}
-.pill{font-size:12px; padding:1px 6px; border:1px dashed var(--border); border-radius:4px}
+.card:hover{ transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,0,0,.45); }
 
-/* table-like counter line */
-.hr{margin:10px 0; border-top:1px dashed var(--border)}
-.count{font-weight:700}
-a{color:var(--accent); text-decoration:none}
-a:hover{text-decoration:underline}
+/* верхняя «HUD» полоса */
+.card .bar{
+  height:8px;
+  background: linear-gradient(90deg, var(--accent) 0%, #b21e1e 40%, #6a1515 100%);
+  border-bottom:1px solid #3b2323;
+}
+.card .inner{ padding:14px; }
+.card h3{ margin:0 0 6px 0; font-size: 18px; }
+.card p{ margin:0; color: var(--muted); min-height: 40px; }
+
+.pills{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.pill{
+  font-size:12px; padding:3px 8px; border-radius:999px;
+  border:1px solid var(--border); background:#101216; color:var(--text);
+}
+.pill.core{ border-color:#592222; background:#1a1212; color:#ffb3b3; }
+.pill.time{ border-color:#4a3a00; background:#181308; color:#ffd777; }
+
+/* CRT FX (мягкий, опциональный) */
+.crt{ position:relative; }
+.crt:before{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.07;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.15) 0px, rgba(255,255,255,.15) 1px, transparent 2px, transparent 4px);
+  mix-blend-mode: screen; border-radius: var(--round);
+}
+
+/* HIGH CONTRAST mode */
+:root[data-contrast="on"]{
+  --muted:#d7d6cf;
+  --border:#3a3e46;
+}
+
+/* small helper */
+.kbd{display:inline-block;border:1px solid var(--border);border-bottom-width:2px;border-radius:6px;padding:2px 6px;background:#101216}
 </style>
 
-<div class="retro" id="retro" data-theme="green">
-  <div class="hero">
-    <div class="logo">[ DevOps/SRE FastTrack ]</div>
-    <div class="banner">██ DEVOPS ░ SRE ░ FASTTRACK ██
-Сборка учебника: теория → практика → самопроверка → чек-лист</div>
+<div class="hero crt" id="hero">
+  <h1>DOOM Edition — DevOps/SRE FastTrack</h1>
+  <p>Улучшенная читабельность: крупный шрифт, минимум «CRT», контрастные алые акценты. Формат курса: краткая теория → практика → самопроверка → чек-лист.</p>
 
-    <div class="prompt">
-      <span class="path">C:\DEVOPS></span>
-      <input id="q" placeholder="find \"kubernetes | ansible | ci/cd | linux\"">
-      <span class="blink">▌</span>
-    </div>
-    <div class="small">[Подсказка] Нажми <span style="border:1px solid var(--border);padding:0 4px">/</span> — фокус на поиск. Введи «iddqd» — включить DOOM-палитру.</div>
-
-    <div class="hr"></div>
-    <div class="small">Палитра:
-      <span class="palette">
-        <button data-theme="green">[ GREEN ]</button>
-        <button data-theme="amber">[ AMBER ]</button>
-        <button data-theme="ice">[ ICE ]</button>
-        <button data-theme="doom">[ DOOM ]</button>
-      </span>
-      <span class="count" style="float:right">Modules: <span id="cnt">{{ site.modules | size }}</span></span>
-    </div>
+  <div class="controls">
+    <label class="toggle"><input type="checkbox" id="fx"> CRT FX</label>
+    <label class="toggle"><input type="checkbox" id="hc"> High-contrast</label>
+    <span class="toggle" id="bigger">A↑</span>
+    <span class="toggle" id="smaller">A↓</span>
+    <span class="count">Модулей: <strong id="cnt">{{ site.modules | size }}</strong></span>
   </div>
 
-  <div class="cards" id="cards">
-    {% assign list = site.modules | sort: "order" %}
-    {% for m in list %}
-    <a class="card"
-       href="{{ m.url | relative_url }}"
-       data-title="{{ m.title | escape }}"
-       data-summary="{{ m.summary | default: 'В разработке' | escape }}"
-       data-tags="{{ m.tags | join: ' ' | escape }}">
+  <div class="search">
+    <input id="q" placeholder="Поиск по модулям… (например: kubernetes, ansible, ci/cd). Нажми «/» чтобы сфокусировать.">
+  </div>
+</div>
+
+<div class="cards" id="cards">
+{% assign list = site.modules | sort: "order" %}
+{% for m in list %}
+  <a class="card" href="{{ m.url | relative_url }}"
+     data-title="{{ m.title | escape }}"
+     data-summary="{{ m.summary | default: 'В разработке' | escape }}"
+     data-tags="{{ m.tags | join: ' ' | escape }}">
+    <div class="bar"></div>
+    <div class="inner">
       <h3>{{ m.title }}</h3>
       <p>{{ m.summary | default: "В разработке" }}</p>
       <div class="pills">
-        <span class="pill">{{ m.track | default: "Core" }}</span>
-        <span class="pill">{{ m.time | default: "90–120 мин" }}</span>
+        <span class="pill core">{{ m.track | default: "Core" }}</span>
+        <span class="pill time">{{ m.time | default: "90–120 мин" }}</span>
         {% if m.tags %}{% for t in m.tags %}<span class="pill">{{ t }}</span>{% endfor %}{% endif %}
       </div>
-    </a>
-    {% endfor %}
-  </div>
+    </div>
+  </a>
+{% endfor %}
 </div>
 
 <script>
 (function(){
-  const root = document.getElementById('retro');
   const q = document.getElementById('q');
   const cnt = document.getElementById('cnt');
   const cards = Array.from(document.querySelectorAll('#cards .card'));
+  const hero = document.getElementById('hero');
+  const fx = document.getElementById('fx');
+  const hc = document.getElementById('hc');
+  const bigger = document.getElementById('bigger');
+  const smaller = document.getElementById('smaller');
 
+  // --- Filter
   function apply(){
     const s = q.value.toLowerCase().trim();
     let visible=0;
     cards.forEach(c=>{
       const hay=(c.dataset.title+' '+c.dataset.summary+' '+c.dataset.tags).toLowerCase();
-      const ok = !s || hay.includes(s);
+      const ok=!s || hay.includes(s);
       c.style.display = ok ? '' : 'none';
       if(ok) visible++;
     });
     cnt.textContent = visible;
   }
   q.addEventListener('input', apply);
-  document.addEventListener('keydown', (e)=>{
+  document.addEventListener('keydown', e=>{
     if(e.key === '/' && document.activeElement !== q){ e.preventDefault(); q.focus(); }
   });
   apply();
 
-  // Palette switcher + persist
-  const saved = localStorage.getItem('retro-theme');
-  if(saved) root.setAttribute('data-theme', saved);
-  document.querySelectorAll('.palette [data-theme]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const th = btn.getAttribute('data-theme');
-      root.setAttribute('data-theme', th);
-      localStorage.setItem('retro-theme', th);
-    });
+  // --- CRT FX toggle (soft)
+  const fxSaved = localStorage.getItem('doom-crt') === 'on';
+  fx.checked = fxSaved;
+  hero.classList.toggle('crt', fx.checked);
+  fx.addEventListener('change', ()=>{
+    hero.classList.toggle('crt', fx.checked);
+    localStorage.setItem('doom-crt', fx.checked ? 'on' : 'off');
   });
 
-  // Easter egg: DOOM (type iddqd)
-  let seq = '';
-  document.addEventListener('keydown', (e)=>{
-    if(/^[a-zA-Z]$/.test(e.key)) { seq = (seq + e.key.toLowerCase()).slice(-5); }
-    if(seq === 'iddqd'){ root.setAttribute('data-theme','doom'); localStorage.setItem('retro-theme','doom'); seq=''; }
+  // --- High contrast toggle
+  const hcSaved = localStorage.getItem('doom-contrast') === 'on';
+  if(hcSaved) document.documentElement.setAttribute('data-contrast','on');
+  hc.checked = hcSaved;
+  hc.addEventListener('change', ()=>{
+    if(hc.checked) document.documentElement.setAttribute('data-contrast','on');
+    else document.documentElement.removeAttribute('data-contrast');
+    localStorage.setItem('doom-contrast', hc.checked ? 'on' : 'off');
   });
+
+  // --- Font size quick controls
+  const root = document.documentElement;
+  const key = 'doom-fontscale';
+  const scale = parseFloat(localStorage.getItem(key) || '1');
+  root.style.fontSize = (scale*100) + '%';
+  function setScale(v){ root.style.fontSize=(v*100)+'%'; localStorage.setItem(key, v.toFixed(2)); }
+  bigger.addEventListener('click', ()=> setScale(Math.min(1.4, (parseFloat(localStorage.getItem(key) || '1') + 0.05))));
+  smaller.addEventListener('click',()=> setScale(Math.max(0.85,(parseFloat(localStorage.getItem(key) || '1') - 0.05))));
 })();
 </script>
